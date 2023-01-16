@@ -8,14 +8,15 @@ chrome.runtime.onMessage.addListener(
                 "from the extension");
       document.body.innerHTML = '<div class=image-container><br><div class="close-button">X</div><img style="max-height:400px; max-width:100%; height:auto; width: auto" src = "' + request.imageSrc + '"><div class="caption" contentEditable>' + defaultCaption + '</div> </div>' + document.body.innerHTML;
       sendResponse({farewell: "goodbye"});
+
+    // Add Close button functionality. This is needed since setting onClick manually in HTML is banned (why is it banned?)
     let close_buttons = document.getElementsByClassName("close-button")
     for (let i = 0; i < close_buttons.length; i++){
-      console.log("Close button obtained!");
       close_buttons[i].addEventListener("click", removeImage);
     }
+    // Making Caption disappear when clicked, if caption contains default content. 
     let captions = document.getElementsByClassName("caption")
     for (let i = 0; i < captions.length; i++){
-      console.log("Caption obtained!");
       captions[i].addEventListener("click", removeText);
     } 
   }
@@ -27,8 +28,6 @@ function removeText(){
 }
 
 function removeImage() {
-  console.log("Removing parentNode");
-  console.log(this.outerHTML);
+  console.log("Removing Image");
   this.parentNode.remove();
-  //element.parentNode.remove();
 };
