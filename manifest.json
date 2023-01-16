@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "ContentToPopup Test",
+  "version": "1.0",
+  "permissions": ["tabs", "storage", "downloads", "activeTab", "scripting"],
+  "web_accessible_resources": [{
+    "resources": ["normal_popup.html", "normal_popup.js", "inject.js"],
+    "matches": [
+              "https://*/*",
+              "http://*/*"
+    ]
+  }],
+  "action": {},
+  "content_scripts": [{
+      "js": ["content.js"],
+      "matches": [
+          "https://*/*",
+          "http://*/*"
+      ]
+  }]
+}
