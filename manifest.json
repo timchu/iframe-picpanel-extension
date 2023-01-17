@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "ContentToPopup Test",
   "version": "1.0",
-  "optional_permissions": ["tabs", "storage", "downloads", "activeTab", "scripting"],
+  "permissions": ["tabs", "storage", "downloads", "activeTab", "scripting"],
   "web_accessible_resources": [{
     "resources": ["side_panel.html", "side_panel.js"],
     "matches": [
