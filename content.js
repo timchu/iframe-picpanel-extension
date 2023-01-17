@@ -8,15 +8,33 @@ async function clickEnable(t) {
   await new Promise(r => setTimeout(r, t));
   clickedBody();
 }
+async function enterEnable(t){
+  await new Promise(r => setTimeout(r, t));
+  logText();
+}
 // Catch all the links loaded by iframe
 clickEnable(1000);
 clickEnable(2000);
 clickEnable(5000);
 clickEnable(15000);
+enterEnable(2000);
 //document.body.addEventListener('click', function(){ clickedBody(); });
+function logText(){
+    console.log("LogText registered");
+  let iframe = document.getElementById('mainframe')
+  iframe.contentWindow.document.body.addEventListener('keypress', function(e) {
+    // Ensures the keydown is only registered once per key press.
+    if (e.repeat) return;
+    if (e.key == 'Enter'){
+      console.log("Logged enter");
+      (async () => { const response = await chrome.runtime.sendMessage({text: iframe.contentWindow.document.getSelection().toString() }); 
+      })();
+    }
+  });
+}
 function clickedBody(){
-  var iframe = document.getElementById('mainframe');
-  var images = iframe.contentWindow.document.body.getElementsByTagName("img");
+  let iframe = document.getElementById('mainframe');
+  let images = iframe.contentWindow.document.body.getElementsByTagName("img");
   for (i = 0; i < images.length; i++){
     let image = images[i]
     image.onclick = function(){onclick(image.src)}
