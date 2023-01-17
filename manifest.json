@@ -2,20 +2,33 @@
   "manifest_version": 3,
   "name": "ContentToPopup Test",
   "version": "1.0",
-  "permissions": ["tabs", "storage", "downloads", "activeTab", "scripting"],
+  "optional_permissions": ["tabs", "storage", "downloads", "activeTab", "scripting"],
   "web_accessible_resources": [{
-    "resources": ["side_panel.html", "side_panel.js", "inject.js"],
+    "resources": ["side_panel.html", "side_panel.js"],
     "matches": [
               "https://*/*",
               "http://*/*"
+    ],
+    "exclude_matches": [
+        "*://*.google.com/*",
+        "*://*.stackoverflow.com/*",
+        "*://*.facebook.com/*"
     ]
   }],
   "action": {},
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [{
       "js": ["content.js"],
       "matches": [
           "https://*/*",
           "http://*/*"
+      ],
+      "exclude_matches": [
+          "*://*.google.com/*",
+          "*://*.stackoverflow.com/*",
+          "*://*.facebook.com/*"
       ]
   }]
 }
