@@ -1,6 +1,5 @@
 let defaultCaption = "(Optional Caption)"
 let defaultText = "Click on any image to drop it into this side panel! Images come with Editable Captions"
-document.body.innerHTML = '<h2>' + defaultText + '</h2>'
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     console.log(sender.tab ?
@@ -16,7 +15,12 @@ chrome.runtime.onMessage.addListener(
         console.log("Adding text");
         document.body.innerHTML += '<div class=text-container><br><div class="close-button">X</div><div style="font-size: 16px; max-height:400px; max-width:100%; height:auto; width: auto">' + request.text + '</div></div>';// + document.body.innerHTML;
         sendResponse({farewell: "got Text"});
+
     }
+/* Aborted attempt to make the sidepanel scroll. I think the problem is that the document HTML doesn't render before I try to scroll down*/
+    
+    console.log(document.body.scrollHeight);
+    scrollTo(0, document.body.scrollHeight);
 
     // Add Close button functionality. This is needed since setting onClick manually in HTML is banned (why is it banned?)
     let close_buttons = document.getElementsByClassName("close-button")
